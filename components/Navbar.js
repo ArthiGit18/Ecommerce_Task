@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import SearchBar from './Searchbar'
 
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex flex-col md:flex-row justify-between items-center gap-4 p-4 shadow-md bg-gray-800 sticky top-0 z-10 text-white">
-      {/* <div className="flex justify-between w-full md:w-auto items-center gap-4"> */}
+     
       <Link href="/" className="text-xl font-bold text-white">🛍️ E-Store</Link>
       <ul className="flex gap-4">
         <li><Link href="/">Home</Link></li>
@@ -38,8 +38,9 @@ export default function Navbar() {
         </li>
       </ul>
 
-      <SearchBar />
-      {/* </div> */}
+      <Suspense fallback={null}>
+        <SearchBar />
+      </Suspense>
     </nav>
   )
 }
