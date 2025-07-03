@@ -15,7 +15,7 @@ export default function HomePage() {
   const updateLocalCart = (newCart) => {
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
-    window.dispatchEvent(new Event("cartUpdated")); // 🔥 This triggers Navbar to update
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const addToCart = (product) => {

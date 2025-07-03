@@ -15,7 +15,6 @@ export default function Navbar() {
   useEffect(() => {
     updateCount();
 
-    // Listen to custom "cartUpdated" events across the app
     const handler = () => updateCount();
     window.addEventListener('cartUpdated', handler);
 

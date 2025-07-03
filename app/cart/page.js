@@ -37,9 +37,9 @@ export default function CartPage() {
                             <h2 className="font-semibold">{item.title}</h2>
                             <p>${item.price}</p>
                             <div className="flex items-center mt-2">
-                                <button onClick={() => updateQty(item.id, -1)} className="px-2 bg-gray-200" disabled={item.qty <= 1}>-</button>
+                                <button onClick={() => updateQty(item.id, -1)} className="px-2 bg-gray-200 text-black" disabled={item.qty <= 1}>-</button>
                                 <span className="px-4">{item.qty}</span>
-                                <button onClick={() => updateQty(item.id, 1)} className="px-2 bg-gray-200">+</button>
+                                <button onClick={() => updateQty(item.id, 1)} className="px-2 bg-gray-200 text-black">+</button>
                                 <button onClick={() => removeItem(item.id)} className="ml-4 text-red-600">Delete</button>
                             </div>
                         </div>
