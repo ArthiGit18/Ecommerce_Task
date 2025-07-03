@@ -1,61 +1,68 @@
-'use client';
+'use client'
 
-import products from '../data/products.json';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import products from '../data/products.json'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 export default function HomePage() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([])
+  const searchParams = useSearchParams()
+  const searchQuery = searchParams.get('search')?.toLowerCase() || ''
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('cart')) || [];
-    setCart(stored);
-  }, []);
+    const stored = JSON.parse(localStorage.getItem('cart')) || []
+    setCart(stored)
+  }, [])
 
   const updateLocalCart = (newCart) => {
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    window.dispatchEvent(new Event("cartUpdated"));
-  };
+    setCart(newCart)
+    localStorage.setItem('cart', JSON.stringify(newCart))
+    window.dispatchEvent(new Event('cartUpdated'))
+  }
 
   const addToCart = (product) => {
-    const existing = cart.find((item) => item.id === product.id);
-    let updated;
+    const existing = cart.find((item) => item.id === product.id)
+    let updated
     if (existing) {
       updated = cart.map((item) =>
         item.id === product.id ? { ...item, qty: item.qty + 1 } : item
-      );
+      )
     } else {
-      updated = [...cart, { ...product, qty: 1 }];
+      updated = [...cart, { ...product, qty: 1 }]
     }
-    updateLocalCart(updated);
-  };
+    updateLocalCart(updated)
+  }
 
   const increaseQty = (id) => {
     const updated = cart.map((item) =>
       item.id === id ? { ...item, qty: item.qty + 1 } : item
-    );
-    updateLocalCart(updated);
-  };
+    )
+    updateLocalCart(updated)
+  }
 
   const decreaseQty = (id) => {
     const updated = cart
       .map((item) =>
         item.id === id ? { ...item, qty: item.qty - 1 } : item
       )
-      .filter((item) => item.qty > 0);
-    updateLocalCart(updated);
-  };
+      .filter((item) => item.qty > 0)
+    updateLocalCart(updated)
+  }
 
   const getQty = (id) => {
-    const item = cart.find((item) => item.id === id);
-    return item ? item.qty : 0;
-  };
+    const item = cart.find((item) => item.id === id)
+    return item ? item.qty : 0
+  }
+
+  const filteredProducts = products.filter((p) =>
+    p.title.toLowerCase().includes(searchQuery)
+  )
 
   return (
     <main className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {products.map((product) => {
-        const qty = getQty(product.id);
+      {filteredProducts.map((product) => {
+        const qty = getQty(product.id)
         return (
           <div key={product.id} className="border p-4 rounded">
             <img
@@ -98,8 +105,8 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-        );
+        )
       })}
     </main>
-  );
+  )
 }
