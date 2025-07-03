@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { useEffect, useState, Suspense } from 'react'
-import SearchBar from './Searchbar'
 
 export default function Navbar() {
   const [count, setCount] = useState(0)
@@ -38,9 +37,6 @@ export default function Navbar() {
         </li>
       </ul>
 
-      <Suspense fallback={null}>
-        <SearchBar />
-      </Suspense>
     </nav>
   )
 }
