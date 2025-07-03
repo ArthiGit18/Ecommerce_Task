@@ -91,7 +91,7 @@ export default function HomePage() {
                 </div>
               )}
               <Link
-                href={`/product/${product.id}`}
+                href={`/products/${product.id}`}
                 className="text-blue-700 underline ml-auto"
               >
                 View
